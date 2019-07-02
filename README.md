@@ -1,4 +1,4 @@
-# Migration-Analysis
+# MigrationAnalysis
 This is a website visualises the flow of migration around the world
 
 Here is the link: https://migration.qcri.org
