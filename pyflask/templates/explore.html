@@ -1,0 +1,25 @@
+<div id="explorediv"><br>
+    <center>
+        <a href={{ url_for('emigration', countrycode = countrycode )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Emigration</button> </a>
+        <a href={{ url_for('maps', countrycode = countrycode )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Immigration</button> </a>
+        <button type='button' data-toggle="modal" data-target="#exploremodal" class="btn btn-primary btn-dark" style="align:right;width:300px;" >Explore</button>
+    </center>
+    <div class="modal fade bd-example-modal-lg show" id="exploremodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content overflow-auto">
+              <center><br><br>
+                  <h5>Additional Information</h5><br>
+                  <p style="font-size:18px;">Comparing Locals and the Expats in {{ country }}</p><br>
+                  <img style="width: auto; height: 250px; align: 'center'" src="{{ pie1 }}" alt="Couldn't load."><br>
+                  <img style="width: auto; height: 250px; align: 'center'" src="{{ pie2 }}" alt="Couldn't load.">
+                  <img style="width: auto; height: 250px; align: 'center'" src="{{ pie3 }}" alt="Couldn't load."><br><br>
+                  <br> <p style="font-size:18px;">Gender distribution for the expats from top ten sending countries</p>
+                  <br><img style="width: auto; height: 400px; align: 'center'" src="{{ bar1 }}" alt="Couldn't load.">
+              <br><br></center>
+        </div>
+      </div>
+    </div>
+    <script>
+        $('#exploremodal').modal('show')
+    </script>
+</div>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='indexcss.css') }}">
+    <title>Migration Analysis</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href={{ url_for('index') }}>Migration Analysis</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href={{ url_for('index') }}>Countries <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={{ url_for('about') }}>About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br><br>
+    <div class="container">
+        <center>
+            <br>
+            <h2>
+                {{ country }}
+            </h2>
+            <br><br><br>
+           <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 border">
+                        <p style="font-size:24px;">General Information</p>
+                        <p>extracted from UN data</p>
+                        <div class="overflow-auto" style="max-height: 350px">
+                            <table class="table">
+                                <tbody>
+                                {% for i in range(length) %}
+                                    <tr>
+                                        <td>{{ attribute[i] }}</td>
+                                        <td>{{ value[i] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <br>
+                    </div>
+                    <div class="col-lg-5">
+                        <center>
+                            <p style="font-size:24px;">Expat distribution</p>
+                            <!--<img style="width: auto; height: 400px; align: 'center'" src="{{ url_for('static', filename='plotcountry'+cc+'.png') }}" alt="Try again">
+                            <img style="width: auto; height: 400px; align: 'center'" src="{{ plot }}" alt="Try again"> -->
+                            <img style="width: auto; height: 400px; align: 'center'" src={{ htmlstring1 }}>
+                        </center>
+                    </div>
+                </div>
+            </div><br>
+
+            <div class="container">
+                 <br>
+                 <br>
+                <center>
+                <a href={{ url_for('map', countrycode = cc )}} ><button type="button" class="btn btn-dark">View on Map</button> </a>
+                </center>
+            </div>
+
+        </center>
+    </div>
+<br><br><br>
+
+
+
+<div class="bluecontainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <center>
+                    <!--<p style="font-size:24px;">Plot a graph</p>-->
+                </center>
+                    <!--<img style="width: auto; height: 400px; align: 'center'" src="{{ url_for('static', filename='plotcountry'+cc+'-form.png') }}" alt="Try again">
+                    <img style="width: auto; height: 400px; align: 'center'" src="{{ plot }}" alt="Try again"> -->
+                    <div id="plot">
+                    <img style="width: auto; height: 400px;" src={{ htmlstring2 }}>
+                    </div>
+                <!--<button type='button' id='plotbtn' class="btn btn-primary btn-dark" >Plot</button> -->
+            </div>
+            <div class="col-lg-2">
+                <br>
+            </div>
+            <div class="col-lg-5">
+                <!--<p style="font-size:24px; text-align: right;">Plot a graph:</p> -->
+                <br><br><br>
+                <!--<form action="{{ url_for('country', countrycode=cc)}}" method="post">-->
+                <div class="row">
+                    <br>
+                    <div class="form-group col-lg-4" align="left">
+                        <p style="font-size:24px;">Gender</p>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="gender" value="male">Male</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="gender" value="female">Female</label>
+                        </div>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="gender" value="both">Both</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group col-lg-4" align="left">
+                        <p style="font-size:24px;">Scholarities</p>
+                        <div class="radio">
+                            <label><input type="radio" name="scholarities" value="graduated">Graduated</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="scholarities" value="highschool">High School</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="scholarities" value="nodegree">No Degree</label>
+                        </div>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="scholarities" value="all">All</label>
+                        </div><br><br>
+                        <button type='button' id='plotbtn' class="btn btn-primary btn-dark" style="align:right;" >Plot</button>
+                    </div>
+                    <br>
+                    <div class="form-group col-lg-4" align="left">
+                        <p style="font-size:24px;">OS used</p>
+                        <div class="radio">
+                            <label><input type="radio" name="os" value="ios">iOS</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="os" value="andriod">Android</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="os" value="others">Others</label>
+                        </div>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="os" value="all">All</label>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <br>
+    <br>
+
+<div class="bluecontainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <center>
+                    <!--<p style="font-size:24px;">Behavior Analysis</p>-->
+                </center>
+                    <!--<img style="width: auto; height: 400px; align: 'center'" src="{{ url_for('static', filename='plotcountry'+cc+'-form.png') }}" alt="Try again">
+                    <img style="width: auto; height: 400px; align: 'center'" src="{{ pie }}" alt="Try again"> -->
+                    <div id="pie">
+                    <img style="width: auto; height: 400px;" src={{ htmlstring3 }}>
+                    </div>
+                <!--<button type='button' id='plotbtn' class="btn btn-primary btn-dark" >Plot</button> -->
+            </div>
+            <div class="col-lg-2">
+                <br>
+            </div>
+            <div class="col-lg-5">
+                <!--<p style="font-size:24px; text-align: right;">Create a pie chart:</p> -->
+                <br><br><br>
+                <!--<form action="{{ url_for('country', countrycode=cc)}}" method="post">-->
+                <div class="row">
+                    <br>
+                    <div class="form-group col-lg-4" align="left">
+                        <p style="font-size:24px;">Location</p>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="location" value="All">All</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="location" value="Local">Local</label>
+                        </div>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="location" value="Migrant">Migrant</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group col-lg-4" align="left">
+                        <p style="font-size:24px;">Category</p>
+                        <div class="radio">
+                            <label><input type="radio" name="category" value="Sex">Gender</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="category" value="Education">Education</label>
+                        </div>
+                        <div class="radio" checked>
+                            <label><input type="radio" name="category" value="OS">OS</label>
+                        </div><br><br>
+                        <button type='button' id='piebtn' class="btn btn-primary btn-dark" style="align:right;" >Pie</button>
+                    </div>
+                    <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$("#plotbtn").click(function(){
+    //var text = $(this).val();
+    var gender = $("input[name='gender']:checked").val();
+    var scholarities = $("input[name='scholarities']:checked").val();
+    var os_var = $("input[name='os']:checked").val();
+    $.ajax({
+      url: "../../plotgraph",
+      type: "get",
+      data: {gender: gender, scholarities: scholarities, os: os_var, cc: '{{cc}}' },
+      success: function(response) {
+        $("#plot").html(response);
+      },
+      error: function(xhr) {
+        //Do Something to handle error
+      }
+    });
+});
+</script>
+
+<script>
+$("#piebtn").click(function(){
+    //var text = $(this).val();
+    var location = $("input[name='location']:checked").val();
+    var category = $("input[name='category']:checked").val();
+    $.ajax({
+      url: "../../plotpie",
+      type: "get",
+      data: {location: location, category: category, cc: '{{cc}}' },
+      success: function(response) {
+        $("#pie").html(response);
+      },
+      error: function(xhr) {
+        //Do Something to handle error
+      }
+    });
+});
+</script>
+
+<footer class="page-footer font-small blue pt-4" style="background-color:#44535e; color:white;">
+  <div class="footer-copyright text-center py-3">
+    June, 2019
+  </div>
+</footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
