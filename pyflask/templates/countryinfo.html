@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-lg-5 border">
                         <p style="font-size:24px;">General Information</p>
-                        <p>extracted from UN data</p>
+                        <p>source: <a href="http://data.un.org/">UN data</a> </p>
                         <div class="overflow-auto" style="max-height: 350px">
                             <table class="table">
                                 <tbody>
@@ -87,7 +87,13 @@
             <div class="container" id="explorediv">
                  <br>
                 <center>
+                    {% if emigration == "1" %}
                 <a href={{ url_for('emigration', countrycode = cc )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Emigration</button> </a>
+                    {% endif %}
+                    {% if emigration == "0" %}
+                <button type="button" data-toggle="modal" data-target="#emigrationmodal" class="btn btn-dark" style="width:280px;">View Emigration</button>
+                    {% endif %}
+
                 <a href={{ url_for('maps', countrycode = cc )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Immigration</button> </a>
                 <button type='button' id='explore' class="btn btn-primary btn-dark" style="align:right;width:280px;" >Explore</button>
                 </center>
@@ -95,6 +101,19 @@
 
         </center>
     </div>
+    <!-- for emigration-->
+    <div class="modal fade" id="emigrationmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <center><br><br>
+            <p style="font-size:18px;">No emigration data provided by Facebook Market API</p><br></center>
+            <div class="container">
+            <center><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></center>
+            </div><br><br>
+        </div>
+      </div>
+    </div>
+
 <br><br><br>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
@@ -102,7 +121,7 @@ $("#explore").click(function(){
     $.ajax({
       url: "../../explore",
       type: "get",
-      data: {cc: '{{cc}}', country: '{{country}}'},
+      data: {cc: '{{cc}}', country: '{{country}}', emigration: "{{emigration}}"},
       success: function(response) {
         $("#explorediv").html(response);
       },

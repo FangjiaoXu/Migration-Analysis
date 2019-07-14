@@ -1,6 +1,12 @@
 <div id="explorediv"><br>
     <center>
+             {% if emigration == "1" %}
         <a href={{ url_for('emigration', countrycode = countrycode )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Emigration</button> </a>
+            {% endif %}
+            {% if emigration == "0" %}
+        <button type="button" data-toggle="modal" data-target="#emigrationmodal" class="btn btn-dark" style="width:280px;">View Emigration</button>
+            {% endif %}
+
         <a href={{ url_for('maps', countrycode = countrycode )}} ><button type="button" class="btn btn-dark" style="width:280px;">View Immigration</button> </a>
         <button type='button' data-toggle="modal" data-target="#exploremodal" class="btn btn-primary btn-dark" style="align:right;width:300px;" >Explore</button>
     </center>
