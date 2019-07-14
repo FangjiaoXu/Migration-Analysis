@@ -13,11 +13,12 @@ from matplotlib import pyplot as plt
 from matplotlib import rc
 from bs4 import BeautifulSoup
 import seaborn as sns
-
+import locale
 # My functions
 import plotmap
 import mapping
 import mapnavbar
+
 
 app = Flask(__name__)
 
@@ -87,6 +88,7 @@ def plotgraph():
     locals_str = "{u'not': [6015559470583], u'name': u'All - Expats'"
     tempdf.at[tempdf[tempdf["citizenship"] == locals_str].index[0], "citizenship"] = "Locals"
     tempdf = tempdf[~tempdf["citizenship"].isin(["Locals", "All ", "All"])]
+    tempdf['citizenship'] = tempdf['citizenship'].apply(lambda x: x.replace(" ", "\n"))
     tempdf = tempdf[tempdf["mau_audience"] > 1000]
 
     if relative == 'on':
@@ -112,15 +114,15 @@ def plotgraph():
                     data=tempdf.sort_values('mau_audience', ascending=False).head(10),
                     palette=sns.color_palette("YlGnBu"))
         ax.set_xlabel('', labelpad=15)
-        plt.xticks(rotation=30)
         if relative == 'on':
-            ax.set_ylabel('Percentage of expats with given conditions for a given country', labelpad=20, fontsize=16)
+            ax.set_ylabel('Facebook Monthly Active Users (%)', labelpad=20, fontsize=18)
         else:
-            ax.set_ylabel('Monthly Active Users', labelpad=20, fontsize=16)
+            ax.set_ylabel('Facebook Monthly Active Users', labelpad=20, fontsize=18)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
-        plt.xticks(rotation=40)
+        plt.xticks(rotation=15, fontsize=15.5)
+        plt.yticks(fontsize=15.5)
         plt.savefig('static/plot.png', transparent=True)
         plt.close()
         encoded = base64.b64encode(open('static/plot.png', 'rb').read()).decode()
@@ -218,6 +220,7 @@ def donutpie(group_names, group_size, subgroup_names, subgroup_size, color, subc
 def explore():
     countrycode = request.args.get('cc')
     country = request.args.get('country')
+    emigration = request.args.get('emigration')
     path = glob('static/simplified/{}.csv.gz'.format(countrycode))[0]
     maindf = pd.read_csv(path)
     df = maindf.set_index('citizenship')
@@ -243,20 +246,17 @@ def explore():
                     [d(0.6), c(0.6)], [d(0.5), d(0.4), d(0.2), c(0.5), c(0.4), c(0.2)])
     #stacked barplot
     fig, ax = plt.subplots(figsize=(12, 7))
-    # rc('font', weight='bold')
     mdf = maindf[maindf['citizenship'].apply(lambda x: x not in set(['All', 'Locals']))]
+    mdf['citizenship'] = mdf['citizenship'].apply(lambda x: x.replace(" ", "\n"))
     mdf = mdf[mdf['Total_mau'] > 1000].sort_values('Total_mau', ascending=False).set_index('citizenship').head(10)
     bars2 = [ mdf.loc[i, 'Male_mau'] for i in mdf.index.values ]
     bars1 = [mdf.loc[i, 'Female_mau'] for i in mdf.index.values ]
     r = [i for i in range(len(mdf.index.values))]
     names = mdf.index.values
-    barWidth = 0.7
-    plt.bar(r, bars1, color='#bfd96a', edgecolor='white', width=barWidth, label='Female')
-    plt.bar(r, bars2, bottom=bars1, color='#3c4d4d', edgecolor='white', width=barWidth, label='Male')
-    # Custom X axis
+    plt.bar(r, bars1, color='#bfd96a', edgecolor='white', width=0.7, label='Female')
+    plt.bar(r, bars2, bottom=bars1, color='#3c4d4d', edgecolor='white', width=0.7, label='Male')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    # ax.spines['bottom'].set_visible(False)
     plt.xticks(r, names, fontweight='bold', rotation=40)
     plt.legend()
     plt.savefig('static/myfig.png', transparent=True)
@@ -264,8 +264,9 @@ def explore():
     encoded = base64.b64encode(open('static/myfig.png', 'rb').read()).decode()
     barhtml = 'data:image/png;base64,{}'
     barhtml = barhtml.format(encoded)
+
     return render_template("explore.html", country=country, pie1=pie1, pie2=pie2, pie3=pie3,
-                           bar1=barhtml, countrycode=countrycode)
+                           bar1=barhtml, countrycode=countrycode, emigration=emigration)
 
 
 def isdigit2(inputString):
@@ -279,6 +280,7 @@ def country(countrycode):
 
     df = pd.read_csv(path)
     df = df[df['citizenship'].apply(lambda x: x not in set(['All', 'Locals']))]
+    df['citizenship'] = df['citizenship'].apply(lambda x: x.replace(" ", "\n"))
 
     if df[df['Total_mau']>1000].empty:
         fig, ax = plt.subplots(figsize=(9.5, 6))
@@ -297,8 +299,9 @@ def country(countrycode):
                                                                                               ascending=False).head(10),
                 palette=sns.color_palette("GnBu_d"))
         ax.set_xlabel('', labelpad=15)
-        plt.xticks(rotation=30)
-        ax.set_ylabel('Monthly Active Users', labelpad=20, fontsize=16)
+        plt.xticks(rotation=15, fontsize=15.5)
+        plt.yticks(fontsize=15.5)
+        ax.set_ylabel('Facebook Monthly Active Users', labelpad=20, fontsize=16)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
@@ -311,13 +314,15 @@ def country(countrycode):
     soup = BeautifulSoup(countryData, 'lxml')
     tables = soup.find_all("tbody")
     lists, i = [[], []], 1
+    locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') #for 1000 separator
     for tag in tables[1].find_all('td'):
         if i == 1:
             lists[0].append(tag.text)
         elif i == 3:
             text = tag.text
             if ((isdigit2(text))&(text[1:].find('-')==-1)):
-                text = re.sub(r"\D", "", text)
+                text = int(re.sub(r"\D", "", text))
+                text = "{:n}".format(text)
             lists[1].append(text)
         i += 1
         if i == 4:
@@ -329,14 +334,22 @@ def country(countrycode):
             elif i == 4:
                 text = tag.text
                 if (isdigit2(text)):
-                    text = re.sub(r"\D", "", text)
+                    text = int(re.sub(r"\D", "", text))
+                    text = "{:n}".format(text)
                 lists[1].append(text)
             i += 1
             if i == 5:
                 i = 1
     attribute, value = lists[0], lists[1]
+
+    emigration = "1"
+    #check for emigration
+    check = pd.read_csv('static/AllMigrants2.csv')
+    if country not in check.columns:
+        emigration = "0"
+
     return render_template("countryinfo.html", cc=countrycode, country=country, attribute=attribute,
-                           value=value, length=len(attribute), htmlstring1=html1, htmlstring2=html1)
+                           value=value, length=len(attribute), htmlstring1=html1, htmlstring2=html1, emigration=emigration)
 
 
 @app.route('/maps/<countrycode>')
