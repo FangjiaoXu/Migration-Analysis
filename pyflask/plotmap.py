@@ -390,7 +390,18 @@ class Geojson():
                     folium.Popup(iframe).add_to(geo)
                     geo.add_to(self.baseMap.feature_groups[self.feature_group][self.name])
                 elif self.vdict[feature['properties'][self.key]]>=1001:
-                    html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><center>"
+                    html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><br>"
+                    # html += '<br>'
+                    for i in range(len(self.absolutecolumns)):
+                        html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(s[self.absolutecolumns[i]], 2)) + self.absolutestring[i] + "</h4>"
+                    for i in range(len(self.valuecolumns)):
+                        total = s[self.valuecolumns[i]].sum()
+                        value = s[self.valuecolumns[i][0]]
+                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>" + str(round(value/total*100., 2)) + "% (" + str(value)+')'+self.valuestring[i]+"</p>"
+
+                    encodedlist = []
+
+                    '''html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><center>"
                     for i in range(len(self.absolutecolumns)):
                         html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(s[self.absolutecolumns[i]], 2)) + self.absolutestring[i] + "</h4>"
 
@@ -399,7 +410,7 @@ class Geojson():
                         value = s[self.valuecolumns[i][0]]
                         html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>" + str(round(value/total*100., 2)) + "%" + self.valuestring[i] + "</h4>"
 
-                    encodedlist = []
+                    encodedlist = []'''
                     for i in range(1):
                         '''fig1, ax1 = plt.subplots(figsize=(2.5,1.5))
                         ax1.pie([s[j] for j in self.plotcolumns[i]], labels=self.plotlabels[i], autopct='%1.1f%%', shadow=True, startangle=90)
