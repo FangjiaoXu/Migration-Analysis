@@ -347,14 +347,15 @@ def country(countrycode):
     check = pd.read_csv('static/AllMigrants2.csv')
     if country not in check.columns:
         emigration = "0"
-
+    url = 'http://data.un.org/en/iso/'+countrycode+'.html'
     return render_template("countryinfo.html", cc=countrycode, country=country, attribute=attribute,
-                           value=value, length=len(attribute), htmlstring1=html1, htmlstring2=html1, emigration=emigration)
+                           value=value, length=len(attribute), htmlstring1=html1, htmlstring2=html1,
+                           emigration=emigration, url=url)
 
 
 @app.route('/maps/<countrycode>')
 def maps(countrycode):
-    return render_template("ImmigrationMaps/{}.html".format(countrycode))
+    return render_template("map/{}.html".format(countrycode))
 
 @app.route('/emigration/<countrycode>')
 def emigration(countrycode):
@@ -449,5 +450,20 @@ def map(countrycode):
 @app.route('/about')
 def about():
     return render_template("about.html")
+
+@app.route('/FAQ')
+def FAQ():
+    return render_template("FAQ.html")
+
+@app.route('/hostcountry')
+def hostcountry():
+    return render_template("hostcountry.txt")
+
+@app.route('/homecountry')
+def homecountry():
+    return render_template("homecountry.txt")
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
