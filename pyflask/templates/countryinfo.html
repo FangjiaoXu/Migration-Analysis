@@ -23,14 +23,16 @@
             <a class="nav-link" href={{ url_for('about') }}>About</a>
           </li>
 
-            <li class="nav-item">
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#bd-example-modal-lg3">FAQs</a>
+          <li class="nav-item">
+            <a class="nav-link" href={{ url_for('FAQ') }}>FAQ</a>
           </li>
 
         </ul>
       </div>
     </nav>
+
     <br>
+
     <div class="container">
         <center>
             <h2>
@@ -41,7 +43,7 @@
                 <div class="row">
                     <div class="col-lg-5 border">
                         <p style="font-size:24px;">General Information</p>
-                        <p>source: <a href="http://data.un.org/">UN data</a> </p>
+                        <p>source: <a href="{{ url }}">UN data</a> </p>
                         <div class="overflow-auto" style="max-height: 350px">
                             <table class="table">
                                 <tbody>
@@ -60,20 +62,20 @@
                     </div>
 
                     <div class="col-lg-5">
-                            <p style="font-size:20px; text-align:'center'">Expat distribution in {{ country }} from top sending countries</p>
-                            <!--<img style="width: auto; height: 400px; align: 'center'" src="{{ url_for('static', filename='plotcountry'+cc+'.png') }}" alt="Try again">
-                            <img style="width: auto; height: 400px; align: 'center'" src="{{ plot }}" alt="Try again"> -->
+                            <p style="font-size:20px; text-align:'center'"> Top countries of origin in {{ country }}
+                                according to Facebook’s “lived in” classification</p>
                             <center>
-                            <a href="#" data-toggle="modal" data-target="#bd-example-modal-lg2" title="Expat distribution in {{ country }}"><img style="width: 130%; height: 100%; align: 'center'; margin-top:-15px;" src={{ htmlstring1 }}></a>
+                            <a href="#" data-toggle="modal" data-target="#bd-example-modal-lg2"
+                               title="Expat distribution in {{ country }}"><img style="width: 130%; height: 100%; align: 'center'; margin-top:-15px;" src={{ htmlstring1 }}></a>
                             </center>
                     </div>
                 </div>
             </div><br>
 
-
             <!-- Modal for image explanation -->
 
-            <div class="modal fade bd-example-modal-lg show" id="bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg show" id="bd-example-modal-lg2" tabindex="-1" role="dialog"
+                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg show">
                 <div class="modal-content overflow-auto">
                     <br>
@@ -250,72 +252,10 @@ $("#plotbtn").click(function(){
 
 <footer class="page-footer font-small blue pt-4" style="background-color:#44535e; color:white;">
   <div class="footer-copyright text-center py-3">
-    June, 2019
+      All estimates of the Facebook monthly active users were collected during [time period] using Facebook’s Marketing
+      API. </br>Details about the data collection on the <a href={{ url_for('about') }} style="color:#66c5ff;">About</a> page.
   </div>
 </footer>
-
-    <div class="modal fade bd-example-modal-lg show" id="bd-example-modal-lg3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg show">
-          <div class="container">
-            <div class="modal-content overflow-auto">
-            <br><br>
-            <center><h4>Frequently Asked Questions</h4></center><br><br><br>
-            <div class="container">
-                <div id="accordion">
-                      <div class="card">
-                        <div class="card-header" id="headingOne" style="background-color:#d4d5d6">
-                          <p class="mb-0">
-                            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                            <p class="lead" style="font-size:17px;"><b>Where is the data coming from?</b></p>
-                            </button>
-                          </h5>
-                        </div>
-                      <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                              <div style="background-color:#ffffff">
-                                    <div class="container">
-                                        <p class="lead" style="font-size:17px; color:black; padding:5%;">
-                                            The data used in this website is extracted from Facebook using its Marketing API.
-                                            Only the monthly active users on facebook are considered for the population count.
-                                            The data is extracted for various target groups based on gender, age group,
-                                            scholarities and the operating system they use.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                     </div>  <!-- end of card accordian 1 -->
-                <br>
-                <div id="accordion2">
-                      <div class="card">
-                        <div class="card-header" id="headingTwo" style="background-color:#d4d5d6">
-                          <p class="mb-0">
-                            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                <p class="lead" style="font-size:17px;"><b>What is the significance of OS used?</b></p>
-                            </button>
-                          </h5>
-                        </div>
-                      <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                              <div style="background-color:#ffffff">
-                                    <div class="container">
-                                        <p class="lead" style="font-size:17px; color:black; padding:5%;">
-                                            Based on existing research by scientists, the type of operating system used
-                                            by the user can be correlated to his/her income. Users with greater income
-                                            tend to have iOS device compared to those with a lower income.
-                                            So we associate the OS type iOS with a greater income and android with a lower income.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                     </div>
-
-
-                </div>
-                <br><br><!--end of modal content -->
-            </div>
-        </div>
-      </div>
-    </div>
 
 
 

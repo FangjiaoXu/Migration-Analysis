@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>FAQ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href={{ url_for('index') }}>Migration Analysis</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href={{ url_for('index') }}>Countries <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href='about'>About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">FAQ<span class="sr-only">(current)</span> </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1 class="display-4">FAQ</h1>
+                            <br><p class="lead">Contact us if you have more questions
+                            </br>
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <img style="width: auto; height: 100px; align:'right'; vertical-align:'right'; border: 2px solid 'black';" src="{{ url_for('static', filename='map.jpg') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div style="padding-left:8%; padding-right:8%;">
+     <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                <h5>For which countries and territories have you collected Facebook data?</h5>
+            </button>
+          </h5>
+        </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="jumbotron jumbotron-fluid">
+                  <!--style="background:transparent !important">-->
+                    <div class="container"><!--#e1e8ea-->
+                        <p class="lead" style="font-size:17px; color:black">
+                            Concerning current places of residence, we have collected data for 231 hosting countries and territories with the full list available at 
+                             <a href={{ url_for('hostcountry') }}>here</a>. 
+                             These are virtually all internationally recognized countries and territories with the main exceptions being Cuba, Syria, North Korea, Sudan, and Northern Cyprus. We collected data for all countries and territories supported by Facebook’s Marketing API at the time of collection (June 2019).
+                        </p>
+                        <p class="lead" style="font-size:17px; color:black">
+                          Concerning countries of origin, we have collected data for 89 countries and territories of origin supported by Facebook. See 
+                          <a href={{ url_for('homecountry') }}>here</a> for the full list. Note that certain sending countries with a large number of migrants living abroad, such as China, Egypt, Syria or Turkey, are not supported by Facebook’s Marketing API.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+          </div>
+     </div>
+    <br>
+
+        <div id="accordion2">
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h5>How does the data collection work?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                <div class="jumbotron jumbotron-fluid">
+                  <div class="container">
+                    <p class="lead" style="font-size:17px; color:black">
+Facebook provides advertisers with the possibility to selectively show advertisement to Facebook users matching certain targeting criteria. The criteria supported by Facebook’s platform include information on countries a Facebook user has lived in. So an advertiser could, for example, choose to show an advertisement to Facebook users who are currently living in Qatar but who, in the past, lived in India. The Facebook Marketing API provides estimates on how many monthly active users (MAUs) match these targeting criteria to facilitate better campaign and budget planning. We collect and visualize these estimates.
+                    </p>
+                  </div>
+                </div>
+            </div>      
+    <br>
+
+        <div id="accordion3">
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <h5>How does Facebook know which countries a user has lived in?</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="jumbotron jumbotron-fluid">
+                  <!--style="background:transparent !important">-->
+                    <div class="container">
+                        <p class="lead" style="font-size:17px; color:black">
+                            Facebook does not provide detailed information for 
+                            <a href="https://www.facebook.com/business/help/182371508761821">how their targeting works</a>.
+                            <a href="https://dl.acm.org/citation.cfm?doid=2908131.2908163">Previous academic work </a> 
+                            published by Facebook researchers uses both signals from a user’s self-declared “home city” as well as the current location of their social connections to infer a user’s country of origin. However, it is unclear if these or other features are used in the system currently in production at Facebook. This “black box” nature is a major limitation when using this type of data.
+                            </p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    <br>
+
+        <footer class="page-footer font-small blue pt-4" style="background-color:#44535e; color:white;">
+          <div class="footer-copyright text-center py-3">
+              All estimates of the Facebook monthly active users were collected during [time period] using Facebook’s
+              Marketing API.
+          </div>
+        </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

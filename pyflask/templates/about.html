@@ -21,9 +21,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">About <span class="sr-only">(current)</span> </a>
               </li>
-                <li class="nav-item">
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#bd-example-modal-lg2">FAQs</a>
-          </li>
+               <li class="nav-item">
+                <a class="nav-link" href='FAQ'}>FAQ<span class="sr-only">(current)</span> </a>
+              </li>
             </ul>
           </div>
         </nav>
@@ -37,10 +37,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1 class="display-4">About the website</h1>
-                            <br><p class="lead">This website was created with an aim to visualise the migration across various
-                            countries based on data collected from the Facebook Marketing API.
-                            <br>Check out the Project Details for more information.
+                            <h1 class="display-4">About this website</h1>
+                            <br><p class="lead">This website was created with the aim to visualize and explore data
+                            related to migration collected from the Facebook Marketing API.
+                            This website does not offer official statistics on international migration.
+                            </br></br>Please check out the Project Details below for more information.
                             </p>
                         </div>
                         <div class="col-lg-4">
@@ -57,7 +58,8 @@
       <div class="card">
         <div class="card-header" id="headingOne">
           <h5 class="mb-0">
-            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
                 <h5>Project Details</h5>
             </button>
           </h5>
@@ -66,11 +68,20 @@
               <div class="jumbotron jumbotron-fluid">
                   <!--style="background:transparent !important">-->
                     <div class="container"><!--#e1e8ea-->
-                        <p class="lead" style="font-size:17px; color:black">This website aims to visualise the flow of migration around the world. The data used for the project
-                              was acquired from the Facebook Marketing API. Pysocialwatcher, a package for social data collection built on python,
-                              was used for collecting the data.
-                              The data was collected separately for 231 countries with information regarding expats from 89 different places.
-                              Using the same data, we created visualisations using some famous python libraries like matplotlib and folium.
+                        <p class="lead" style="font-size:17px; color:black">
+                            This website aims to visualize data related to migration collected from the Facebook
+                            Marketing API. This website does not offer official statistics on international migration.
+                            The data used for the project was collected through the
+                            <a href="https://developers.facebook.com/docs/marketing-apis/">Facebook Marketing API</a>.
+                            More specifically, data for the estimated number of monthly active users (MAUs) matching
+                            certain <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-account/delivery_estimate/">
+                            targeting criteria</a> was collected. <a href="https://github.com/maraujo/pySocialWatcher">
+                            PySocialWatcher</a>, a package for social data collection built on Python, was used for
+                            collecting the data. The data was collected for 231 hosting countries and territories and
+                            for 89 countries and territories of origin. See the full list in the FAQ. Using the
+                            collected data, we created visualisations using Python libraries such as
+                            <a href="https://matplotlib.org/">matplotlib</a>  and
+                            <a href="https://github.com/python-visualization/folium">folium</a>.
                             </p>
                     </div>
                 </div>
@@ -170,78 +181,54 @@
             </div>
           </div>
         </div>
+    <br>
+    <div id="accordion4">
+          <div class="card">
+            <div class="card-header" id="headingFive">
+              <h5 class="mb-0">
+                <button class="btn collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    <h5>References</h5>
+                </button>
+              </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+              <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <p class="lead" style="font-size:17px; color:black">
+                            <ul>
+                        <li>“Leveraging Facebook's Advertising Platform to Monitor Stocks of Migrants” </br>
+                                Emilio Zagheni, Ingmar Weber, and Krishna Gummadi</br>
+                            <i>Population and Development Review, 2017</i></br>
+                            <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/padr.12102">View Paper</a></li><br>
+                             <li>
+                            “Visualizing Geo-Demographic Urban Data” </br>
+                            Matheus Araujo, Yelena Mejova, Michaël Aupetit, and Ingmar Weber</br>
+                                 <i>Conference on Computer Supported Cooperative Work and Social Computing, 2018</i></br>
+                                 <a href="https://dl.acm.org/citation.cfm?id=3273001">View Paper</a></li></br>
+                             <li>
+                                 “Real-Time Monitoring of the Venezuelan Exodus through Facebook’s Advertising Platform” </br>
+                            Joao Palotti, Natalia Adler, Alfredo Morales, Jeffrey Villaveces, Vedran Sekara,
+                                 Manuel Garcia Herranz, Musa Al-Asa, and Ingmar Weber</br>
+                                 <i>Report on the Operational Coordination Portal for Refugees and Migrants from Venezuela, 2019</i></br>
+                                 <a href="https://r4v.info/en/documents/details/68638">View Paper</a></li><br>
+                            </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
 </div>
 
         <br>
         <footer class="page-footer font-small blue pt-4" style="background-color:#44535e; color:white;">
           <div class="footer-copyright text-center py-3">
-            June, 2019
+              All estimates of the Facebook monthly active users were collected during [time period] using Facebook’s
+              Marketing API.
           </div>
         </footer>
-
-
-        <div class="modal fade bd-example-modal-lg show" id="bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg show">
-          <div class="container">
-            <div class="modal-content overflow-auto">
-            <br><br>
-            <center><h4>Frequently Asked Questions</h4></center><br><br><br>
-            <div class="container">
-                <div id="accordion">
-                      <div class="card">
-                        <div class="card-header" id="headingOne" style="background-color:#d4d5d6">
-                          <p class="mb-0">
-                            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                            <p class="lead" style="font-size:17px;"><b>Where is the data coming from?</b></p>
-                            </button>
-                          </h5>
-                        </div>
-                      <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                              <div style="background-color:#ffffff">
-                                    <div class="container">
-                                        <p class="lead" style="font-size:17px; color:black; padding:5%;">
-                                            The data used in this website is extracted from Facebook using its Marketing API.
-                                            Only the monthly active users on facebook are considered for the population count.
-                                            The data is extracted for various target groups based on gender, age group,
-                                            scholarities and the operating system they use.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                     </div>  <!-- end of card accordian 1 -->
-                <br>
-                <div id="accordion2">
-                      <div class="card">
-                        <div class="card-header" id="headingTwo" style="background-color:#d4d5d6">
-                          <p class="mb-0">
-                            <button class="btn collapsed" style="font-color:'black';" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                <p class="lead" style="font-size:17px;"><b>What is the significance of OS used?</b></p>
-                            </button>
-                          </h5>
-                        </div>
-                      <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                              <div style="background-color:#ffffff">
-                                    <div class="container">
-                                        <p class="lead" style="font-size:17px; color:black; padding:5%;">
-                                            Based on existing research by scientists, the type of operating system used
-                                            by the user can be correlated to his/her income. Users with greater income
-                                            tend to have iOS device compared to those with a lower income.
-                                            So we associate the OS type iOS with a greater income and android with a lower income.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                     </div>
-
-
-                </div>
-                <br><br><!--end of modal content -->
-            </div>
-        </div>
-      </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
