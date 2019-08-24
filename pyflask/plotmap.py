@@ -192,7 +192,7 @@ class Geojson():
     style='position: absolute; z-index:9999; border:2px solid grey; background-color:rgba(255, 255, 255, 0.8);
      border-radius:6px; padding: 10px; font-size:14px; right: 20px; bottom: 20px;'>
 
-<div class='legend-title'>Migrants From Each Country</div>
+<div class='legend-title'>FB users from abroad now living in Qatar</div>
 <div class='legend-scale'>
   <ul class='legend-labels'>
     <li><span style='background:#fee5d9;opacity:1;'></span>1,001 to 10,001</li>
@@ -393,11 +393,12 @@ class Geojson():
                     html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><br>"
                     # html += '<br>'
                     for i in range(len(self.absolutecolumns)):
-                        html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(s[self.absolutecolumns[i]], 2)) + self.absolutestring[i] + "</h4>"
+                        value = s[self.absolutecolumns[i][0]]
+                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(value, 2)) + self.absolutestring[i] + "</p>"
                     for i in range(len(self.valuecolumns)):
                         total = s[self.valuecolumns[i]].sum()
                         value = s[self.valuecolumns[i][0]]
-                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>" + str(round(value/total*100., 2)) + "% (" + str(value)+')'+self.valuestring[i]+"</p>"
+                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>" + str(int(round(value/total*100))) + "% (" + str(value)+')'+self.valuestring[i]+"</p>"
 
                     encodedlist = []
 
