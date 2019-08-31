@@ -192,7 +192,7 @@ class Geojson():
     style='position: absolute; z-index:9999; border:2px solid grey; background-color:rgba(255, 255, 255, 0.8);
      border-radius:6px; padding: 10px; font-size:14px; right: 20px; bottom: 20px;'>
 
-<div class='legend-title'>FB users from abroad now living in """+ self.country"""</div>
+<div class='legend-title'>FB users from abroad now living in """+ self.country+ """</div>
 <div class='legend-scale'>
   <ul class='legend-labels'>
     <li><span style='background:#fee5d9;opacity:1;'></span>1,001 to 10,001</li>
