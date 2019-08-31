@@ -192,7 +192,7 @@ class Geojson():
     style='position: absolute; z-index:9999; border:2px solid grey; background-color:rgba(255, 255, 255, 0.8);
      border-radius:6px; padding: 10px; font-size:14px; right: 20px; bottom: 20px;'>
 
-<div class='legend-title'>Migrants From Each Country</div>
+<div class='legend-title'>FB users from """+ self.country +""" now living in other countries</div>
 <div class='legend-scale'>
   <ul class='legend-labels'>
     <li><span style='background:#fee5d9;opacity:1;'></span>1,001 to 10,001</li>
@@ -379,28 +379,65 @@ class Geojson():
             s = self.df[self.df[self.locationcol] == feature['properties'][self.key]].squeeze()
 
             if not s.empty:
-                if feature['properties'][self.key] != self.country:
-                    if self.vdict[feature['properties'][self.key]]>=1001:
-                        html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><br>"
-                        # html += '<br>'
-                        for i in range(len(self.absolutecolumns)):
-                            html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(s[self.absolutecolumns[i]], 2)) + self.absolutestring[i] + "</h4>"
-                        for i in range(len(self.valuecolumns)):
-                            total = s[self.valuecolumns[i]].sum()
-                            value = s[self.valuecolumns[i][0]]
-                            html += "<p style='font-family: Arial, Helvetica, sans-serif;'>" + str(round(value/total*100., 2)) + "%" + self.valuestring[i] + "</p>"
+                if feature['properties'][self.key] == self.country:
+                    html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><center>"
+                    html+="<h4 style='font-family: Arial, Helvetica, sans-serif;'>This is the country you selected</h4>"
+                    geo = folium.GeoJson(feature['geometry'],
+                           style_function = lambda feature: { 'weight': 0,'fillOpacity': 0},
+                            tooltip = feature['properties'][self.key])
+                    encodedlist = []
+                    iframe = branca.element.IFrame(html=html.format(*encodedlist), width=400, height=400)
+                    folium.Popup(iframe).add_to(geo)
+                    geo.add_to(self.baseMap.feature_groups[self.feature_group][self.name])
+                elif self.vdict[feature['properties'][self.key]]>=1001:
+                    html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><br>"
+                    # html += '<br>'
+                    for i in range(len(self.absolutecolumns)):
+                        value = s[self.absolutecolumns[i][0]]
+                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(value, 2)) + self.absolutestring[i] + "</p>"
+                    for i in range(len(self.valuecolumns)):
+                        total = s[self.valuecolumns[i]].sum()
+                        value = s[self.valuecolumns[i][0]]
+                        html += "<p style='font-family: Arial, Helvetica, sans-serif;'>" + str(int(round(value/total*100))) + "% (" + str(value)+')'+self.valuestring[i]+"</p>"
 
-                        encodedlist = []
+                    encodedlist = []
 
-                        # html += '</center>'
+                    '''html = "<center><h2 style='font-family: Arial, Helvetica, sans-serif;'>" + feature['properties'][self.key] + "</h2></center><center>"
+                    for i in range(len(self.absolutecolumns)):
+                        html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>"+str(round(s[self.absolutecolumns[i]], 2)) + self.absolutestring[i] + "</h4>"
 
-                        geo = folium.GeoJson(feature['geometry'],
-                               style_function = lambda feature: { 'weight': 0,'fillOpacity': 0},
-                                tooltip = feature['properties'][self.key])
+                    for i in range(len(self.valuecolumns)):
+                        total = s[self.valuecolumns[i]].sum()
+                        value = s[self.valuecolumns[i][0]]
+                        html += "<h4 style='font-family: Arial, Helvetica, sans-serif;'>" + str(round(value/total*100., 2)) + "%" + self.valuestring[i] + "</h4>"
 
-                        iframe = branca.element.IFrame(html=html.format(*encodedlist), width=460, height=410)
-                        folium.Popup(iframe).add_to(geo)
-                        geo.add_to(self.baseMap.feature_groups[self.feature_group][self.name])
+                    encodedlist = []'''
+                    '''for i in range(1):
+     
+                        name=feature['properties'][self.key]
+                        
+                        encoded = b64encode(open('gender_pie/gender{}_{}.png'.format(countrycode, name), 'rb').read()).decode()
+                        encodedlist.append(encoded)
+                        html += '<img align="middle" src="data:image/png;base64,{}">'
+                        
+                        encoded = b64encode(open('os_pie/os{}_{}.png'.format(countrycode, name), 'rb').read()).decode()
+                        encodedlist.append(encoded)
+                        html += '<img align="middle" src="data:image/png;base64,{}">'
+                        
+                        encoded = b64encode(open('edu_pie/education{}_{}.png'.format(countrycode, name), 'rb').read()).decode()
+                        encodedlist.append(encoded)
+                        html += '<img align="middle" src="data:image/png;base64,{}">'
+                        '''
+                        
+                    html += '</center>'
+
+                    geo = folium.GeoJson(feature['geometry'],
+                           style_function = lambda feature: { 'weight': 0,'fillOpacity': 0},
+                            tooltip = feature['properties'][self.key])
+
+                    iframe = branca.element.IFrame(html=html.format(*encodedlist), width=400, height=400)
+                    folium.Popup(iframe).add_to(geo)
+                    geo.add_to(self.baseMap.feature_groups[self.feature_group][self.name])
 
 class InterestingFacts():
     """Creates a map with icons showing interesting facts
